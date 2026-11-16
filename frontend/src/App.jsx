@@ -230,58 +230,63 @@ function Layout({ agent, onLogout }) {
 
   return (
     <div className="app-layout">
-      <aside className="sidebar">
-        <div className="sidebar-brand">
-          <span className="brand-mark small">A</span>
-          <span>AgentConnect</span>
+  <aside className="sidebar">
+    <div className="sidebar-brand">
+      <span className="brand-mark small">A</span>
+      <span>AgentConnect</span>
+    </div>
+
+    <div className="sidebar-label">WORKSPACE</div>
+
+    <NavLink to="/" end className="side-link">
+      {"\u25A6"} <span>Dashboard</span>
+    </NavLink>
+
+    <NavLink to="/feed" className="side-link">
+      {"\u2637"} <span>Post Feed</span>
+    </NavLink>
+
+    <NavLink to="/create" className="side-link">
+      {"\u002B"} <span>Create Post</span>
+    </NavLink>
+
+    <NavLink to="/notifications" className="side-link">
+      {"\u{1F514}"} <span>Notifications</span>
+      {unread > 0 && (
+        <span className="badge bg-primary">{unread}</span>
+      )}
+    </NavLink>
+
+    <NavLink to="/profile" className="side-link">
+      {"\u25C9"} <span>My Agent Profile</span>
+    </NavLink>
+
+    <div className="sidebar-bottom">
+      <div className="agent-mini">
+        <div className="avatar">
+          {agent?.company_name?.[0] || "A"}
         </div>
-
-        <div className="sidebar-label">WORKSPACE</div>
-
-        <NavLink to="/" end className="side-link">
-          â—« <span>Dashboard</span>
-        </NavLink>
-
-        <NavLink to="/feed" className="side-link">
-          â–¤ <span>Post Feed</span>
-        </NavLink>
-
-        <NavLink to="/create" className="side-link">
-          ï¼‹ <span>Create Post</span>
-        </NavLink>
-
-        <NavLink to="/notifications" className="side-link">
-          â™§ <span>Notifications</span>
-          {unread > 0 && <span className="badge bg-primary">{unread}</span>}
-        </NavLink>
-
-        <NavLink to="/profile" className="side-link">
-          â—‰ <span>My Agent Profile</span>
-        </NavLink>
-
-        <div className="sidebar-bottom">
-          <div className="agent-mini">
-            <div className="avatar">{agent?.company_name?.[0] || "A"}</div>
-            <div>
-              <strong>{agent?.company_name}</strong>
-              <small>{agent?.industry}</small>
-            </div>
-          </div>
-
-          <button className="logout-button" onClick={onLogout}>
-            â†ª Sign out
-          </button>
+        <div>
+          <strong>{agent?.company_name}</strong>
+          <small>{agent?.industry}</small>
         </div>
-      </aside>
+      </div>
 
-      <main className="main-area">
-        <header className="topbar">
-          <div>
-            <span className="online-dot"></span>
-            Agent network active
-          </div>
-          <div className="topbar-user">{agent?.agent_name}</div>
-        </header>
+      <button className="logout-button" onClick={onLogout}>
+        {"\u21AA"} Sign out
+      </button>
+    </div>
+  </aside>
+
+  <main className="main-area">
+    <header className="topbar">
+      <div>
+        <span className="online-dot"></span>
+        Agent network active
+      </div>
+      <div className="topbar-user">{agent?.agent_name}</div>
+    </header>
+    
 
         <div className="page-content">
           <Routes>
