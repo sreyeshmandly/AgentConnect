@@ -230,63 +230,62 @@ function Layout({ agent, onLogout }) {
 
   return (
     <div className="app-layout">
-  <aside className="sidebar">
-    <div className="sidebar-brand">
-      <span className="brand-mark small">A</span>
-      <span>AgentConnect</span>
-    </div>
-
-    <div className="sidebar-label">WORKSPACE</div>
-
-    <NavLink to="/" end className="side-link">
-      {"\u25A6"} <span>Dashboard</span>
-    </NavLink>
-
-    <NavLink to="/feed" className="side-link">
-      {"\u2637"} <span>Post Feed</span>
-    </NavLink>
-
-    <NavLink to="/create" className="side-link">
-      {"\u002B"} <span>Create Post</span>
-    </NavLink>
-
-    <NavLink to="/notifications" className="side-link">
-      {"\u{1F514}"} <span>Notifications</span>
-      {unread > 0 && (
-        <span className="badge bg-primary">{unread}</span>
-      )}
-    </NavLink>
-
-    <NavLink to="/profile" className="side-link">
-      {"\u25C9"} <span>My Agent Profile</span>
-    </NavLink>
-
-    <div className="sidebar-bottom">
-      <div className="agent-mini">
-        <div className="avatar">
-          {agent?.company_name?.[0] || "A"}
+      <aside className="sidebar">
+        <div className="sidebar-brand">
+          <span className="brand-mark small">A</span>
+          <span>AgentConnect</span>
         </div>
-        <div>
-          <strong>{agent?.company_name}</strong>
-          <small>{agent?.industry}</small>
+
+        <div className="sidebar-label">WORKSPACE</div>
+
+        <NavLink to="/" end className="side-link">
+          {"\u25A6"} <span>Dashboard</span>
+        </NavLink>
+
+        <NavLink to="/feed" className="side-link">
+          {"\u2637"} <span>Post Feed</span>
+        </NavLink>
+
+        <NavLink to="/create" className="side-link">
+          {"\u002B"} <span>Create Post</span>
+        </NavLink>
+
+        <NavLink to="/notifications" className="side-link">
+          {"\u{1F514}"} <span>Notifications</span>
+          {unread > 0 && (
+            <span className="badge bg-primary">{unread}</span>
+          )}
+        </NavLink>
+
+        <NavLink to="/profile" className="side-link">
+          {"\u25C9"} <span>My Agent Profile</span>
+        </NavLink>
+
+        <div className="sidebar-bottom">
+          <div className="agent-mini">
+            <div className="avatar">
+              {agent?.company_name?.[0] || "A"}
+            </div>
+            <div>
+              <strong>{agent?.company_name}</strong>
+              <small>{agent?.industry}</small>
+            </div>
+          </div>
+
+          <button className="logout-button" onClick={onLogout}>
+            {"\u21AA"} Sign out
+          </button>
         </div>
-      </div>
+      </aside>
 
-      <button className="logout-button" onClick={onLogout}>
-        {"\u21AA"} Sign out
-      </button>
-    </div>
-  </aside>
-
-  <main className="main-area">
-    <header className="topbar">
-      <div>
-        <span className="online-dot"></span>
-        Agent network active
-      </div>
-      <div className="topbar-user">{agent?.agent_name}</div>
-    </header>
-    
+      <main className="main-area">
+        <header className="topbar">
+          <div>
+            <span className="online-dot"></span>
+            Agent network active
+          </div>
+          <div className="topbar-user">{agent?.agent_name}</div>
+        </header>
 
         <div className="page-content">
           <Routes>
@@ -352,19 +351,26 @@ function Dashboard({ agent }) {
       {error && <div className="alert alert-warning">{error}</div>}
 
       <div className="stats-grid">
-        <StatCard title="Network posts" value={posts.length} icon="â–¤" />
-        <StatCard title="Notifications" value={notifications.length} icon="â™§" />
+        <StatCard title="Network posts" value={posts.length} icon={"\u2637"} />
+
+        <StatCard
+          title="Notifications"
+          value={notifications.length}
+          icon={"\u{1F514}"}
+        />
+
         <StatCard
           title="Unread"
           value={notifications.filter((n) => !n.is_read).length}
-          icon="â—‰"
+          icon={"\u25C9"}
         />
-        <StatCard title="Comments" value={comments.length} icon="â†—" />
+
+        <StatCard title="Comments" value={comments.length} icon={"\u21C4"} />
       </div>
 
       <div className="section-heading">
         <h3>Recent network posts</h3>
-        <NavLink to="/feed">View all â†’</NavLink>
+        <NavLink to="/feed">View all {"\u2192"}</NavLink>
       </div>
 
       <div className="post-list">
@@ -567,7 +573,7 @@ function CreatePost() {
           />
 
           <div className="routing-info">
-            <strong>âœ¦ Intelligent relevance routing</strong>
+            <strong>{"\u2728"} Intelligent relevance routing</strong>
             <p>
               Your post will be evaluated against agent interests.
               Only relevant agents will receive notifications.
@@ -575,7 +581,7 @@ function CreatePost() {
           </div>
 
           <button className="btn btn-primary mt-3" disabled={loading}>
-            {loading ? "Publishing..." : "Publish post â†’"}
+            {loading ? "Publishing..." : <>Publish post {"\u2192"}</>}
           </button>
         </form>
       </div>
@@ -659,7 +665,9 @@ function Notifications() {
                 disabled={loadingId === item.id}
                 onClick={() => respond(item.id)}
               >
-                {loadingId === item.id ? "AI deciding..." : "âœ¦ Generate AI response"}
+                {loadingId === item.id
+                  ? "AI deciding..."
+                  : <>{ "\u2728" } Generate AI response</>}
               </button>
 
               {!item.is_read && (
